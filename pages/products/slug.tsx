@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography, Chip } from '@mui/material'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
 import { initialData } from '../../database/products'
@@ -18,11 +18,24 @@ const ProductsPage = () => {
                     {/* title */}
                     <Typography variant='h1' component='h1'> { product.title } </Typography>
                     <Typography variant='subtitle1' component='h2'> ${ product.price } </Typography>
+
+                    <Box sx={{my: 2}}>
+                        <Typography variant='subtitle2'>Quantity</Typography>
+                        {/* ItemCounter */}
+                    </Box>
+
+                    <Button color='secondary' className='circular-btn'>
+                        Add to Cart
+                    </Button>
+
+                    {/* <Chip label='Not available' color='error' variant='outlined' /> */}
+
+                    <Box sx={{ mt: 3}}>
+                        <Typography variant='subtitle2'>Description</Typography>
+                        <Typography variant='body2'>{product.description}</Typography>
+                    </Box>
                 </Box>
 
-                <Box sx={{my: 2}}>
-                    <Typography variant='subtitle2'>Quantity</Typography>
-                </Box>
             </Grid>
         </Grid>
     </ShopLayout>
