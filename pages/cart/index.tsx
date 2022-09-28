@@ -1,8 +1,8 @@
-import { Card, CardContent, Divider, Grid, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
 
-export const CartPage = () => {
+const CartPage = () => {
   return (
     <ShopLayout title='Cart - x' pageDescription='Shopping cart'>
         <Typography variant='h1' component='h1'>Cart</Typography>
@@ -15,7 +15,14 @@ export const CartPage = () => {
                 <Card className='summary-card'>
                     <CardContent>
                         <Typography variant='h2'>Order</Typography>
-                        <Divider></Divider>
+                        <Divider sx={{my: 1}}>
+                            {/* Order Summary */}
+                        </Divider>
+                        <Box sx={{ mt: 3}}>
+                            <Button color='secondary' className='circular-btn' fullWidth>
+                                Checkout
+                            </Button>
+                        </Box>
                     </CardContent>
                 </Card>
             </Grid>
@@ -23,3 +30,5 @@ export const CartPage = () => {
     </ShopLayout>
   )
 }
+
+export default CartPage
