@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from '@mui/material'
 import React from 'react'
+import { CartList } from '../../components/cart'
 import { ShopLayout } from '../../components/layouts'
 
 const CartPage = () => {
@@ -9,7 +10,7 @@ const CartPage = () => {
 
         <Grid container>
             <Grid item xs={12} sm={7}>
-                <CartList></CartList>
+                <CartList />
             </Grid>
             <Grid item xs={12} sm={5}>
                 <Card className='summary-card'>
