@@ -26,7 +26,7 @@ export const ProductCard: FC<Props> = ({product}) => {
                     <CardMedia
                       component='img'
                       className='fadeIn'
-                      image={ `products/${productImage}` }
+                      image={ productImage }
                       alt={ product.title }
                     />
                 </CardActionArea>
