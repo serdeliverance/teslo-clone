@@ -19,7 +19,7 @@ export const CartList: FC<Props>= ({isEditable = false}) => {
   return (
     <>
         {
-            productsInCart.map( product => {
+            productsInCart.map( product => (
               <Grid container spacing={2} sx={{mb: 1}} key={product.slug}>
                 <Grid item xs={3}>
                   <NextLink href='/products/slug'>
@@ -57,7 +57,7 @@ export const CartList: FC<Props>= ({isEditable = false}) => {
                   }
                 </Grid>
               </Grid>
-            })
+            ))
         }
     </>
   )

@@ -16,11 +16,10 @@ const SummaryPage = () => {
                 <Card className='summary-card'>
                     <CardContent>
                         <Typography variant='h2'>Order</Typography>
-                        <Divider sx={{my: 1}}>
+                        <Divider sx={{my: 1}} />
                         
                         <OrderSummary />
 
-                        </Divider>
                         <Box sx={{ mt: 3}}>
                             <Button color='secondary' className='circular-btn' fullWidth>
                                 Checkout
