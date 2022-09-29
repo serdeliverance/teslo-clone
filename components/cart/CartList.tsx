@@ -1,9 +1,8 @@
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from "@mui/material"
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { initialData } from "../../database/products"
 import NextLink from 'next/link'
 import { ItemCounter } from "../ui"
-import { IProduct } from "../../interfaces"
 
 const productsInCart = [
     initialData.products[0],
@@ -12,7 +11,7 @@ const productsInCart = [
 ]
 
 interface Props {
-  isEditable: boolean
+  isEditable?: boolean
 }
 
 export const CartList: FC<Props>= ({isEditable = false}) => {
@@ -27,7 +26,7 @@ export const CartList: FC<Props>= ({isEditable = false}) => {
                     <Link>
                       <CardActionArea>
                         <CardMedia 
-                          image={`products/${product.images[0]}`}
+                          image={`/products/${product.images[0]}`}
                           component='img'
                           sx={{ borderRadius: '5px'}}
                         />
