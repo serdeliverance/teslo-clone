@@ -11,7 +11,12 @@ const productsInCart = [
     initialData.products[2],
 ]
 
-export const CartList= () => {
+interface Props {
+  isEditable: boolean
+}
+
+export const CartList: FC<Props>= ({isEditable = false}) => {
+
   return (
     <>
         {
@@ -35,14 +40,22 @@ export const CartList= () => {
                     <Typography variant="body1">{product.title}</Typography>
                     <Typography variant="body1">Size: <strong>M</strong></Typography>
 
-                    {/* Conditional */}
-                    <ItemCounter />
+                    {
+                      isEditable 
+                      ? <ItemCounter /> 
+                      : <Typography variant='h5'>3 items</Typography>
+                    }
+
                   </Box>
                 </Grid>
                 <Grid item xs={2} display='flex' alignItems='center' flexDirection='column'>
                   <Typography variant='subtitle1'>${product.price}</Typography>
-                  {/* Editable */}
-                  <Button variant="text" color="secondary">Remove</Button>
+
+                  {
+                    isEditable && (
+                      <Button variant="text" color="secondary">Remove</Button>
+                    )
+                  }
                 </Grid>
               </Grid>
             })
