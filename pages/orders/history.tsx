@@ -1,11 +1,40 @@
-import { Grid, Typography } from '@mui/material'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { Chip, Grid, Link, Typography } from '@mui/material'
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
+import NextLink from 'next/link'
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 100},
-    { field: 'fullname', headerName: 'Fullname', width: 300}
+    { field: 'fullname', headerName: 'Fullname', width: 300},
+    {
+        field: 'paid', 
+        headerName: 'Pay',
+        description: 'Information about the order payment status',
+        width: 200,
+        renderCell: (params: GridValueGetterParams) => {
+            return (
+                params.row.paid
+                    ? <Chip color='success' label='paid' variant='outlined'/>
+                    : <Chip color='error' label='not paid' variant='outlined'/>
+            )
+        }
+    },
+    {
+        field: 'order', 
+        headerName: 'See order',
+        width: 200,
+        sortable: false,
+        renderCell: (params: GridValueGetterParams) => {
+            return (
+                <NextLink href={`/orders/${params.row.id}`} passHref>
+                    <Link underline='always'>
+                        See order
+                    </Link>
+                </NextLink>
+            )
+        }
+    },
 ]
 
 const rows = [
