@@ -1,7 +1,7 @@
 services:
-  entries-db:
+  teslo-db:
     image: mongo:5.0.0
-    container_name: entries-database
+    container_name: teslo-database
     ports:
       - 27017:27017
     volumes:
