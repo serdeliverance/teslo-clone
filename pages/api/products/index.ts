@@ -18,11 +18,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     }
 }
 
-const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const getProducts = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    await db.connect
+    await db.connect()
     const products = await Product.find().select('title images price inStock slug -_id').lean()
-    await db.disconnect
+    await db.disconnect()
 
     return res.status(200).json(products)
 }
