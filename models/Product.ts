@@ -26,7 +26,7 @@ const productSchema = new Schema({
     gender: {
         type: String,
         enum: {
-            values: ['men','women','kids','unisex'],
+            values: ['men','women','kid','unisex'],
             message: '{VALUE} is not a valid gender'
         }
     }
