@@ -11,7 +11,7 @@ docker-compose up
 Local `Mongo` url:
 
 ```
-mongodb://localhost:27017/entriesdb
+mongodb://localhost:27017/teslodb
 ```
 
 ## Env variables configuration
