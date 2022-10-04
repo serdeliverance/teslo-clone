@@ -3,16 +3,19 @@ import type { AppProps } from 'next/app'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { lightTheme } from '../themes'
 import { SWRConfig } from 'swr'
+import { UIProvider } from '../context/ui/UIProvider'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig value={{
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
     }}>
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <UIProvider>
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </UIProvider>
     </SWRConfig>
   )
 }
