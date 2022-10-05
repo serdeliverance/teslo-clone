@@ -53,24 +53,34 @@ const ProductsPage: FC<Props> = ({ product }) => {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const { slug } = params as { slug: string }
-    const product = await dbProducts.getProductBySlug(slug)
+// Don't use SSR here... because that way we are generating the full page with every request
 
-    if ( !product ) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false
-            }
-        }
-    }
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+//     const { slug } = params as { slug: string }
+//     const product = await dbProducts.getProductBySlug(slug)
 
-    return {
-        props: {
-            product
-        }
-    }
-}
+//     if ( !product ) {
+//         return {
+//             redirect: {
+//                 destination: '/',
+//                 permanent: false
+//             }
+//         }
+//     }
+
+//     return {
+//         props: {
+//             product
+//         }
+//     }
+// }
+
+// Better to use SSG
+
+// TODO getStaticProps...
+// blocking
+
+// TODO getStaticProps...
+// revalidate every 24hs
 
 export default ProductsPage
