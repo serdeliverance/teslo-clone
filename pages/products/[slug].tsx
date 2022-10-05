@@ -8,7 +8,7 @@ import { initialData } from '../../database/products'
 import { IProduct } from '../../interfaces'
 import { GetServerSideProps } from 'next'
 import { dbProducts } from '../../database'
-
+import { GetStaticPaths } from 'next'
 interface Props {
     product: IProduct
 }
@@ -77,10 +77,55 @@ const ProductsPage: FC<Props> = ({ product }) => {
 
 // Better to use SSG
 
-// TODO getStaticProps...
-// blocking
 
-// TODO getStaticProps...
-// revalidate every 24hs
+
+
+
+
+// You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
+
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+    
+    const productSlugs = await dbProducts.getAllProductSlugs()
+
+    return {
+        paths: productSlugs.map(({slug}) => ({ 
+            params: { 
+                slug 
+            }
+        })),
+        fallback: "blocking"
+    }
+}
+
+// You should use getStaticProps when:
+//- The data required to render the page is available at build time ahead of a user’s request.
+//- The data comes from a headless CMS.
+//- The data can be publicly cached (not user-specific).
+//- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
+import { GetStaticProps } from 'next'
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+
+    const { slug = '' } = params as { slug: string }
+
+    const product = await dbProducts.getProductBySlug(slug)
+
+    if (!product) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            product
+        },
+        revalidate: 86400
+    }
+}
 
 export default ProductsPage
