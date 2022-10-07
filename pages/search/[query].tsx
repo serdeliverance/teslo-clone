@@ -5,11 +5,14 @@ import { GetServerSideProps } from 'next'
 import { dbProducts } from '../../database'
 import { IProduct } from '../../interfaces'
 import { ProductList } from '../../components/products'
+import { Box } from '@mui/system'
 
 interface Props {
-  products: IProduct[]
+  products: IProduct[],
+  foundProducts: boolean,
+  query: string
 }
-const SearchPage: NextPage<Props> = ({ products }) => {
+const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
   return (
     <ShopLayout
       title="Teslo Shop - Search"
@@ -18,8 +21,21 @@ const SearchPage: NextPage<Props> = ({ products }) => {
       <Typography variant="h1" component="h1">
         Search product
       </Typography>
+
+      {
+        foundProducts
+          ? <Typography variant='h2' sx={{mb: 1}}>Term: { query }</Typography>
+          : 
+            (
+              <Box display='flex'>
+                <Typography variant='h2' sx={{mb: 1}}>We haven't found any product</Typography>
+                <Typography variant='h2' sx={{ml: 1}} color='secondary'>{ query }</Typography>
+              </Box>
+            )
+      }
+
       <Typography variant="h2" sx={{ mb: 1 }}>
-        XXXX - XXXX
+        { query }
       </Typography>
 
       <ProductList products={products} />
@@ -41,10 +57,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   let products = await dbProducts.getProductsByTerm(query)
 
-  // TODO return other products if empty
+  const foundProducts = products.length > 0
+
+  if (!foundProducts) {
+    products = await dbProducts.getAllProducts()
+  }
 
   return {
-    props: {},
+    props: {
+      products,
+      foundProducts,
+      query
+    },
   }
 }
 

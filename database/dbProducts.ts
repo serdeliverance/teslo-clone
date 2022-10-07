@@ -42,3 +42,8 @@ export const getProductsByTerm = async (term: string): Promise<IProduct[]> => {
 
   return products
 }
+
+export const getAllProducts = async(): Promise<IProduct[]> => {
+    // TODO
+    return Promise.resolve([])
+}
