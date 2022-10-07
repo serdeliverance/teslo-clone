@@ -10,28 +10,32 @@ interface Props {
   products: IProduct[]
 }
 const SearchPage: NextPage<Props> = ({ products }) => {
-
   return (
-    <ShopLayout title='Teslo Shop - Search' pageDescription='Find the best products here'>
-      <Typography variant='h1' component='h1'>Search product</Typography>
-      <Typography variant='h2' sx={{ mb: 1}}>XXXX - XXXX</Typography>
+    <ShopLayout
+      title="Teslo Shop - Search"
+      pageDescription="Find the best products here"
+    >
+      <Typography variant="h1" component="h1">
+        Search product
+      </Typography>
+      <Typography variant="h2" sx={{ mb: 1 }}>
+        XXXX - XXXX
+      </Typography>
 
       <ProductList products={products} />
-      
     </ShopLayout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-
   const { query = '' } = params as { query: string }
 
   if (query.length === 0) {
     return {
       redirect: {
         destination: '/',
-        permanent: true
-      }
+        permanent: true,
+      },
     }
   }
 
@@ -40,9 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   // TODO return other products if empty
 
   return {
-    props: {
-      
-    }
+    props: {},
   }
 }
 

@@ -1,9 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-    message: string
+  message: string
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    res.status(400).json({ message: 'You must specify a search query' })
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>,
+) {
+  res.status(400).json({ message: 'You must specify a search query' })
 }

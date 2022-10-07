@@ -7,9 +7,12 @@ import { UIProvider } from '../context/ui/UIProvider'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SWRConfig value={{
-      fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
-    }}>
+    <SWRConfig
+      value={{
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
+      }}
+    >
       <UIProvider>
         <ThemeProvider theme={lightTheme}>
           <CssBaseline />

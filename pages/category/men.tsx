@@ -6,20 +6,21 @@ import { FullScreenLoading } from '../../components/ui'
 import { useProducts } from '../../hooks'
 
 const MenPage: NextPage = () => {
-
   const { products, isLoading } = useProducts('/products?gender=men')
 
   return (
-    <ShopLayout title='Teslo Shop' pageDescription='Find the best products for him'>
-      <Typography variant='h1' component='h1'>Men</Typography>
-      <Typography variant='h2' sx={{ mb: 1}}>Products for Men</Typography>
+    <ShopLayout
+      title="Teslo Shop"
+      pageDescription="Find the best products for him"
+    >
+      <Typography variant="h1" component="h1">
+        Men
+      </Typography>
+      <Typography variant="h2" sx={{ mb: 1 }}>
+        Products for Men
+      </Typography>
 
-      {
-        isLoading
-          ? <FullScreenLoading />
-          : <ProductList products={products} />
-      }
-
+      {isLoading ? <FullScreenLoading /> : <ProductList products={products} />}
     </ShopLayout>
   )
 }
