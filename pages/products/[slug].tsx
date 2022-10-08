@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography, Chip } from '@mui/material'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { ShopLayout } from '../../components/layouts'
 import { ProductSlideshow, SizeSelector } from '../../components/products'
 import { ItemCounter } from '../../components/ui'
@@ -11,6 +11,17 @@ interface Props {
 }
 
 const ProductsPage: FC<Props> = ({ product }) => {
+  const [tempCartProduct, setTempCartProduct] = useState({
+    _id: product._id,
+    image: product.images[0],
+    price: product.price,
+    size: undefined,
+    slug: product.slug,
+    title: product.title,
+    gender: product.gender,
+    quantity: 1,
+  })
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container>
@@ -33,12 +44,15 @@ const ProductsPage: FC<Props> = ({ product }) => {
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2">Quantity</Typography>
               <ItemCounter />
-              <SizeSelector sizes={product.sizes} />
+              <SizeSelector 
+                sizes={product.sizes} 
+                selectedSize={tempCartProduct.size}
+              />
             </Box>
 
             {product.inStock > 0 ? (
               <Button color="secondary" className="circular-btn">
-                Add to cart
+                {tempCartProduct.size ? 'Add to cart' : 'Select a size'}
               </Button>
             ) : (
               <Chip label="Not available" color="error" variant="outlined" />
