@@ -8,8 +8,8 @@ import { ProductList } from '../../components/products'
 import { Box } from '@mui/system'
 
 interface Props {
-  products: IProduct[],
-  foundProducts: boolean,
+  products: IProduct[]
+  foundProducts: boolean
   query: string
 }
 const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
@@ -22,20 +22,23 @@ const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
         Search product
       </Typography>
 
-      {
-        foundProducts
-          ? <Typography variant='h2' sx={{mb: 1}}>Term: { query }</Typography>
-          : 
-            (
-              <Box display='flex'>
-                <Typography variant='h2' sx={{mb: 1}}>We haven't found any product</Typography>
-                <Typography variant='h2' sx={{ml: 1}} color='secondary'>{ query }</Typography>
-              </Box>
-            )
-      }
+      {foundProducts ? (
+        <Typography variant="h2" sx={{ mb: 1 }}>
+          Term: {query}
+        </Typography>
+      ) : (
+        <Box display="flex">
+          <Typography variant="h2" sx={{ mb: 1 }}>
+            We haven't found any product
+          </Typography>
+          <Typography variant="h2" sx={{ ml: 1 }} color="secondary">
+            {query}
+          </Typography>
+        </Box>
+      )}
 
       <Typography variant="h2" sx={{ mb: 1 }}>
-        { query }
+        {query}
       </Typography>
 
       <ProductList products={products} />
@@ -67,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     props: {
       products,
       foundProducts,
-      query
+      query,
     },
   }
 }

@@ -1,30 +1,29 @@
-import { FC, ReactNode, useReducer } from 'react';
-import { ICartProduct } from '../../interfaces';
-import { CartContext, cartReducer } from './';
+import { FC, ReactNode, useReducer } from 'react'
+import { ICartProduct } from '../../interfaces'
+import { CartContext, cartReducer } from './'
 
 export interface CartState {
-    cart: ICartProduct[];
+  cart: ICartProduct[]
 }
 
-
 const CART_INITIAL_STATE: CartState = {
-    cart: [],
+  cart: [],
 }
 
 interface Props {
-    children: ReactNode
+  children: ReactNode
 }
 
+export const CartProvider: FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE)
 
-export const CartProvider:FC<Props> = ({ children }) => {
-
-    const [state, dispatch] = useReducer( cartReducer , CART_INITIAL_STATE );
-
-    return (
-        <CartContext.Provider value={{
-            ...state
-        }}>
-            { children }
-        </CartContext.Provider>
-    )
-};
+  return (
+    <CartContext.Provider
+      value={{
+        ...state,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
+}

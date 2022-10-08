@@ -36,18 +36,13 @@ const ProductsPage: FC<Props> = ({ product }) => {
               <SizeSelector sizes={product.sizes} />
             </Box>
 
-            {
-              (product.inStock > 0)
-                ? (
-                  <Button color='secondary' className='circular-btn'>
-                    Add to cart
-                  </Button>
-                )
-                :
-                (
-                  <Chip label='Not available' color='error' variant='outlined'/>
-                )
-            }
+            {product.inStock > 0 ? (
+              <Button color="secondary" className="circular-btn">
+                Add to cart
+              </Button>
+            ) : (
+              <Chip label="Not available" color="error" variant="outlined" />
+            )}
 
             <Box sx={{ mt: 3 }}>
               <Typography variant="subtitle2">Description</Typography>
