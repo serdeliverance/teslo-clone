@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 import { ShopLayout } from '../../components/layouts'
 import { ProductSlideshow, SizeSelector } from '../../components/products'
 import { ItemCounter } from '../../components/ui'
-import { IProduct } from '../../interfaces'
+import { ICartProduct, IProduct, ISize } from '../../interfaces'
 import { dbProducts } from '../../database'
 import { GetStaticPaths } from 'next'
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ProductsPage: FC<Props> = ({ product }) => {
-  const [tempCartProduct, setTempCartProduct] = useState({
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
     price: product.price,
@@ -21,6 +21,14 @@ const ProductsPage: FC<Props> = ({ product }) => {
     gender: product.gender,
     quantity: 1,
   })
+
+  const onSelectedSize = (size: ISize) => {
+    setTempCartProduct({
+      ...tempCartProduct,
+      size
+      }
+    )
+  }
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
@@ -47,6 +55,7 @@ const ProductsPage: FC<Props> = ({ product }) => {
               <SizeSelector 
                 sizes={product.sizes} 
                 selectedSize={tempCartProduct.size}
+                onSelectSize={onSelectedSize}
               />
             </Box>
 
