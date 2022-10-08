@@ -3,6 +3,7 @@ import {
   Card,
   CardActionArea,
   CardMedia,
+  Chip,
   Grid,
   Link,
   Typography,
@@ -39,6 +40,17 @@ export const ProductCard: FC<Props> = ({ product }) => {
         <NextLink href={`/products/${product.slug}`} passHref prefetch={false}>
           <Link>
             <CardActionArea>
+
+              {
+                (product.inStock === 0) && (
+                  <Chip
+                    color='primary'
+                    label='Not available'
+                    sx={{ position: 'absolute', zIndex: 99, top: '10px', left: '10px' }}
+                  />
+                )
+              }
+              
               <CardMedia
                 component="img"
                 className="fadeIn"

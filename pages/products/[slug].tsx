@@ -1,12 +1,9 @@
 import { Box, Button, Grid, Typography, Chip } from '@mui/material'
-import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { ShopLayout } from '../../components/layouts'
 import { ProductSlideshow, SizeSelector } from '../../components/products'
 import { ItemCounter } from '../../components/ui'
-import { initialData } from '../../database/products'
 import { IProduct } from '../../interfaces'
-import { GetServerSideProps } from 'next'
 import { dbProducts } from '../../database'
 import { GetStaticPaths } from 'next'
 interface Props {
@@ -39,11 +36,18 @@ const ProductsPage: FC<Props> = ({ product }) => {
               <SizeSelector sizes={product.sizes} />
             </Box>
 
-            <Button color="secondary" className="circular-btn">
-              Add to Cart
-            </Button>
-
-            {/* <Chip label='Not available' color='error' variant='outlined' /> */}
+            {
+              (product.inStock > 0)
+                ? (
+                  <Button color='secondary' className='circular-btn'>
+                    Add to cart
+                  </Button>
+                )
+                :
+                (
+                  <Chip label='Not available' color='error' variant='outlined'/>
+                )
+            }
 
             <Box sx={{ mt: 3 }}>
               <Typography variant="subtitle2">Description</Typography>
