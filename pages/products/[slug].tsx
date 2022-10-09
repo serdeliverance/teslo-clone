@@ -1,8 +1,8 @@
 import { Box, Button, Grid, Typography, Chip } from '@mui/material'
 import React, { FC, useState } from 'react'
 import { ShopLayout } from '../../components/layouts'
-import { ProductSlideshow, SizeSelector } from '../../components/products'
 import { ItemCounter } from '../../components/ui'
+import { ProductSlideshow, SizeSelector } from '../../components/products'
 import { ICartProduct, IProduct, ISize } from '../../interfaces'
 import { dbProducts } from '../../database'
 import { GetStaticPaths } from 'next'
@@ -25,9 +25,15 @@ const ProductsPage: FC<Props> = ({ product }) => {
   const onSelectedSize = (size: ISize) => {
     setTempCartProduct({
       ...tempCartProduct,
-      size
-      }
-    )
+      size,
+    })
+  }
+
+  const onUpdateQuantity = (quantity: number) => {
+    setTempCartProduct({
+      ...tempCartProduct,
+      quantity,
+    })
   }
 
   return (
@@ -51,9 +57,13 @@ const ProductsPage: FC<Props> = ({ product }) => {
 
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2">Quantity</Typography>
-              <ItemCounter />
-              <SizeSelector 
-                sizes={product.sizes} 
+              <ItemCounter
+                currentValue={tempCartProduct.quantity}
+                maxValue={product.inStock > 10 ? 10 : product.inStock}
+                onUpdateQuantity={onUpdateQuantity}
+              />
+              <SizeSelector
+                sizes={product.sizes}
                 selectedSize={tempCartProduct.size}
                 onSelectSize={onSelectedSize}
               />

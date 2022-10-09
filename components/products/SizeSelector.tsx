@@ -8,7 +8,11 @@ interface Props {
   onSelectSize: (size: ISize) => void
 }
 
-export const SizeSelector: FC<Props> = ({ selectedSize, sizes, onSelectSize }) => {
+export const SizeSelector: FC<Props> = ({
+  selectedSize,
+  sizes,
+  onSelectSize,
+}) => {
   return (
     <Box>
       {sizes.map((size) => (
