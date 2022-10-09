@@ -20,8 +20,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE)
 
   useEffect(() => {
-    const cookieProducts = Cookie.get('cart') ?  JSON.parse(Cookie.get('cart')!) : []
-    dispatch({ type: '[Cart] - Load cart from cookies | storage', payload: cookieProducts})
+    try {
+      const cookieProducts = Cookie.get('cart') ?  JSON.parse(Cookie.get('cart')!) : []
+      dispatch({ type: '[Cart] - Load cart from cookies | storage', payload: cookieProducts})
+    } catch (error) {
+      // catch just in case of cookie being altered by the client and it fails parsing
+      dispatch({ type: '[Cart] - Load cart from cookies | storage', payload: []})
+    }
+
   }, [])
   
 
