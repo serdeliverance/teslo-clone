@@ -7,32 +7,28 @@ import {
   Link,
   Typography,
 } from '@mui/material'
-import { FC } from 'react'
-import { initialData } from '../../database/products'
+import { FC, useContext } from 'react'
 import NextLink from 'next/link'
 import { ItemCounter } from '../ui'
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-]
+import { CartContext } from '../../context'
 
 interface Props {
   isEditable?: boolean
 }
 
 export const CartList: FC<Props> = ({ isEditable = false }) => {
+  const { cart } = useContext(CartContext)
+
   return (
     <>
-      {productsInCart.map((product) => (
+      {cart.map((product) => (
         <Grid container spacing={2} sx={{ mb: 1 }} key={product.slug}>
           <Grid item xs={3}>
             <NextLink href="/products/slug">
               <Link>
                 <CardActionArea>
                   <CardMedia
-                    image={`/products/${product.images[0]}`}
+                    image={`/products/${product.image}`}
                     component="img"
                     sx={{ borderRadius: '5px' }}
                   />
@@ -48,9 +44,16 @@ export const CartList: FC<Props> = ({ isEditable = false }) => {
               </Typography>
 
               {isEditable ? (
-                <ItemCounter />
+                <ItemCounter
+                  currentValue={product.quantity}
+                  maxValue={10}
+                  onUpdateQuantity={() => {}}
+                />
               ) : (
-                <Typography variant="h5">3 items</Typography>
+                <Typography variant="h5">
+                  {product.quantity}{' '}
+                  {product.quantity > 1 ? 'productos' : 'producto'}
+                </Typography>
               )}
             </Box>
           </Grid>

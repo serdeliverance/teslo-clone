@@ -11,7 +11,6 @@ interface Props {
 }
 
 const ProductsPage: FC<Props> = ({ product }) => {
-
   const router = useRouter()
 
   const { addProductToCart } = useContext(CartContext)
@@ -81,7 +80,11 @@ const ProductsPage: FC<Props> = ({ product }) => {
             </Box>
 
             {product.inStock > 0 ? (
-              <Button color="secondary" className="circular-btn" onClick={onAddProduct}>
+              <Button
+                color="secondary"
+                className="circular-btn"
+                onClick={onAddProduct}
+              >
                 {tempCartProduct.size ? 'Add to cart' : 'Select a size'}
               </Button>
             ) : (

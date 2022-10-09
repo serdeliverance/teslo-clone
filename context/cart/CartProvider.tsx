@@ -21,22 +21,27 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     try {
-      const cookieProducts = Cookie.get('cart') ?  JSON.parse(Cookie.get('cart')!) : []
-      dispatch({ type: '[Cart] - Load cart from cookies | storage', payload: cookieProducts})
+      const cookieProducts = Cookie.get('cart')
+        ? JSON.parse(Cookie.get('cart')!)
+        : []
+      dispatch({
+        type: '[Cart] - Load cart from cookies | storage',
+        payload: cookieProducts,
+      })
     } catch (error) {
       // catch just in case of cookie being altered by the client and it fails parsing
-      dispatch({ type: '[Cart] - Load cart from cookies | storage', payload: []})
+      dispatch({
+        type: '[Cart] - Load cart from cookies | storage',
+        payload: [],
+      })
     }
-
   }, [])
-  
 
   useEffect(() => {
     Cookie.set('cart', JSON.stringify(state.cart))
   }, [state.cart])
-  
 
-  const addProductToCart = (product: ICartProduct ) => {
+  const addProductToCart = (product: ICartProduct) => {
     //! alternative 1
     // dispatch({ type: '[Cart] - Add product', payload: product})
 
@@ -45,13 +50,23 @@ export const CartProvider: FC<Props> = ({ children }) => {
     // dispatch({ type: '[Cart] - Add product', payload: [...productsInCart, product]})
 
     //! final solution
-    const isProductInCart = state.cart.some( p => p._id === product._id )
-    if ( !isProductInCart ) return dispatch({ type: '[Cart] - Add product', payload: [...state.cart, product]})
+    const isProductInCart = state.cart.some((p) => p._id === product._id)
+    if (!isProductInCart)
+      return dispatch({
+        type: '[Cart] - Add product',
+        payload: [...state.cart, product],
+      })
 
-    const hasSameSize = state.cart.some( p => p._id === product._id && p.size === product.size )
-    if ( !hasSameSize ) return dispatch({ type: '[Cart] - Add product', payload: [...state.cart, product]})
+    const hasSameSize = state.cart.some(
+      (p) => p._id === product._id && p.size === product.size,
+    )
+    if (!hasSameSize)
+      return dispatch({
+        type: '[Cart] - Add product',
+        payload: [...state.cart, product],
+      })
 
-    const updatedProducts = state.cart.map( p => {
+    const updatedProducts = state.cart.map((p) => {
       if (p._id !== product._id) return p
       if (p.size !== product.size) return p
 
@@ -67,7 +82,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
     <CartContext.Provider
       value={{
         ...state,
-        addProductToCart
+        addProductToCart,
       }}
     >
       {children}

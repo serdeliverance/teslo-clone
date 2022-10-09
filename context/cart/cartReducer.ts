@@ -15,12 +15,12 @@ export const cartReducer = (
     case '[Cart] - Load cart from cookies | storage':
       return {
         ...state,
-        cart: action.payload
+        cart: action.payload,
       }
     case '[Cart] - Add product':
       return {
         ...state,
-        cart: [ ...action.payload ]
+        cart: [...action.payload],
       }
     default:
       return state
