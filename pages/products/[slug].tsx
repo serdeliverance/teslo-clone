@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography, Chip } from '@mui/material'
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { ShopLayout } from '../../components/layouts'
 import { ItemCounter } from '../../components/ui'
 import { ProductSlideshow, SizeSelector } from '../../components/products'
@@ -11,6 +11,11 @@ interface Props {
 }
 
 const ProductsPage: FC<Props> = ({ product }) => {
+
+  const router = useRouter()
+
+  const { addProductToCart } = useContext(CartContext)
+
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
@@ -34,6 +39,12 @@ const ProductsPage: FC<Props> = ({ product }) => {
       ...tempCartProduct,
       quantity,
     })
+  }
+
+  const onAddProduct = () => {
+    if (!tempCartProduct.size) return
+    addProductToCart(tempCartProduct)
+    router.push('/cart')
   }
 
   return (
@@ -70,7 +81,7 @@ const ProductsPage: FC<Props> = ({ product }) => {
             </Box>
 
             {product.inStock > 0 ? (
-              <Button color="secondary" className="circular-btn">
+              <Button color="secondary" className="circular-btn" onClick={onAddProduct}>
                 {tempCartProduct.size ? 'Add to cart' : 'Select a size'}
               </Button>
             ) : (
@@ -133,6 +144,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 //- The data can be publicly cached (not user-specific).
 //- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { CartContext, CartProvider } from '../../context'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string }
