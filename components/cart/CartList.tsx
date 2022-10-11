@@ -18,9 +18,13 @@ interface Props {
 }
 
 export const CartList: FC<Props> = ({ isEditable = false }) => {
-  const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext)
+  const { cart, updateCartQuantity, removeCartProduct } =
+    useContext(CartContext)
 
-  const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
+  const onNewCartQuantityValue = (
+    product: ICartProduct,
+    newQuantityValue: number,
+  ) => {
     product.quantity = newQuantityValue
     updateCartQuantity(product)
   }
@@ -28,7 +32,12 @@ export const CartList: FC<Props> = ({ isEditable = false }) => {
   return (
     <>
       {cart.map((product) => (
-        <Grid container spacing={2} sx={{ mb: 1 }} key={ product.slug + product.size }>
+        <Grid
+          container
+          spacing={2}
+          sx={{ mb: 1 }}
+          key={product.slug + product.size}
+        >
           <Grid item xs={3}>
             <NextLink href={`/products/${product.slug}`}>
               <Link>
@@ -53,7 +62,9 @@ export const CartList: FC<Props> = ({ isEditable = false }) => {
                 <ItemCounter
                   currentValue={product.quantity}
                   maxValue={10}
-                  onUpdateQuantity={(newValue) => onNewCartQuantityValue(product, newValue)}
+                  onUpdateQuantity={(newValue) =>
+                    onNewCartQuantityValue(product, newValue)
+                  }
                 />
               ) : (
                 <Typography variant="h5">
@@ -73,7 +84,11 @@ export const CartList: FC<Props> = ({ isEditable = false }) => {
             <Typography variant="subtitle1">${product.price}</Typography>
 
             {isEditable && (
-              <Button variant="text" color="secondary" onClick={() => removeCartProduct(product)}>
+              <Button
+                variant="text"
+                color="secondary"
+                onClick={() => removeCartProduct(product)}
+              >
                 Remove
               </Button>
             )}

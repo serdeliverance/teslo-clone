@@ -10,7 +10,7 @@ import {
 import { CartList, OrderSummary } from '../../components/cart'
 import { ShopLayout } from '../../components/layouts'
 
-const CartPage = () => {  
+const CartPage = () => {
   return (
     <ShopLayout title="Cart - x" pageDescription="Shopping cart">
       <Typography variant="h1" component="h1">
