@@ -40,6 +40,20 @@ export const CartProvider: FC<Props> = ({ children }) => {
     Cookie.set('cart', JSON.stringify(state.cart))
   }, [state.cart])
 
+  useEffect(() => {
+    const numberOfItems = state.cart.reduce( (prev, currentItem) => currentItem.quantity + prev, 0)
+    const subTotal = state.cart.reduce((prev, current) => current.quantity * current.price + prev, 0)
+    const taxRate = 0.15
+
+    const orderSummary = {
+      numberOfItems,
+      subTotal,
+      tax: subTotal * taxRate,
+    }
+
+    
+  }, [state.cart])
+
   const addProductToCart = (product: ICartProduct) => {
     //! alternative 1
     // dispatch({ type: '[Cart] - Add product', payload: product})
