@@ -4,7 +4,6 @@ import { CartContext } from '../../context'
 import { currency } from '../../utils'
 
 export const OrderSummary = () => {
-
   const { numberOfItems, subTotal, total, tax } = useContext(CartContext)
 
   return (
@@ -14,7 +13,9 @@ export const OrderSummary = () => {
       </Grid>
 
       <Grid item xs={6} display="flex" justifyContent="end">
-        <Typography>{numberOfItems} { numberOfItems > 1 ? 'items' : 'item'}</Typography>
+        <Typography>
+          {numberOfItems} {numberOfItems > 1 ? 'items' : 'item'}
+        </Typography>
       </Grid>
       <Grid item xs={6}>
         <Typography>Subtotal</Typography>
@@ -24,7 +25,9 @@ export const OrderSummary = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <Typography>Taxes ({ Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100 }%)</Typography>
+        <Typography>
+          Taxes ({Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%)
+        </Typography>
       </Grid>
       <Grid item xs={6} display="flex" justifyContent="end">
         <Typography>{currency.format(tax)}</Typography>
