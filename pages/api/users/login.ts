@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../database'
 import { User } from '../../../models'
 import bcrypt from 'bcryptjs'
+import { jwt } from '../../../utils'
 
 type Data = 
     | { message: string }
@@ -32,8 +33,10 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   const { role, name } = user
 
+  const token = jwt.signToken(user._id, user.email)
+
   return res.status(200).json({
-    token: '',
+    token,
     user: {
         email, role, name
     }
