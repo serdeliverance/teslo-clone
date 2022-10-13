@@ -4,9 +4,9 @@ import { User } from '../../../models'
 import bcrypt from 'bcryptjs'
 import { jwt, validation } from '../../../utils'
 
-type Data = 
-    | { message: string }
-    | { token: string, user: { role: string, email: string, name: string}}
+type Data =
+  | { message: string }
+  | { token: string; user: { role: string; email: string; name: string } }
 
 export default function handler(
   req: NextApiRequest,
@@ -20,19 +20,30 @@ export default function handler(
   }
 }
 
-const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const { email = '', password = '', name ='' } = req.body as { email: string, password: string, name: string}
+const registerUser = async (
+  req: NextApiRequest,
+  res: NextApiResponse<Data>,
+) => {
+  const {
+    email = '',
+    password = '',
+    name = '',
+  } = req.body as { email: string; password: string; name: string }
 
   if (password.length < 6) {
-    return res.status(400).json({message: 'Password should be of 6 characters or more'})
+    return res
+      .status(400)
+      .json({ message: 'Password should be of 6 characters or more' })
   }
 
   if (name.length < 2) {
-    return res.status(400).json({message: 'Name should be of 2 characters or more'})
+    return res
+      .status(400)
+      .json({ message: 'Name should be of 2 characters or more' })
   }
 
   if (!validation.isValidEmail(email)) {
-    return res.status(400).json({message: 'Invalid email'})
+    return res.status(400).json({ message: 'Invalid email' })
   }
 
   await db.connect()
@@ -40,7 +51,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
   if (user) {
     await db.disconnect()
-    return res.status(400).json({message: 'email already exists'})
+    return res.status(400).json({ message: 'email already exists' })
   }
 
   await db.disconnect()
@@ -68,7 +79,9 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
   return res.status(200).json({
     token,
     user: {
-        email, role, name
-    }
+      email,
+      role,
+      name,
+    },
   })
 }

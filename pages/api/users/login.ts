@@ -4,9 +4,9 @@ import { User } from '../../../models'
 import bcrypt from 'bcryptjs'
 import { jwt } from '../../../utils'
 
-type Data = 
-    | { message: string }
-    | { token: string, user: { role: string, email: string, name: string}}
+type Data =
+  | { message: string }
+  | { token: string; user: { role: string; email: string; name: string } }
 
 export default function handler(
   req: NextApiRequest,
@@ -38,7 +38,9 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   return res.status(200).json({
     token,
     user: {
-        email, role, name
-    }
+      email,
+      role,
+      name,
+    },
   })
 }
