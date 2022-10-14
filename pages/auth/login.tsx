@@ -7,13 +7,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthLayout } from '../../components/layouts'
 import NextLink from 'next/link'
 import { useForm } from 'react-hook-form'
 import { validation } from '../../utils'
 import { tesloApi } from '../../api'
 import { ErrorOutlined } from '@mui/icons-material'
+import { AuthContext } from '../../context'
+import { useRouter } from 'next/router'
 
 type FormData = {
   email: string
@@ -21,6 +23,10 @@ type FormData = {
 }
 
 const LoginPage = () => {
+
+  const router = useRouter()
+  const { loginUser } = useContext(AuthContext)
+
   const {
     register,
     handleSubmit,
@@ -32,16 +38,15 @@ const LoginPage = () => {
   const onLoginUser = async ({ email, password }: FormData) => {
     setShowError(false)
 
-    try {
-      const { data } = await tesloApi.post('/user/login', { email, password })
-      const { token, user } = data
-      console.log({ token, user })
-    } catch (error) {
+    const isValidLogin = await loginUser(email, password)
+
+    if (!isValidLogin) {
       setShowError(true)
       setTimeout(() => setShowError(false), 3000)
+      return
     }
 
-    // TODO navigate to the page the user was before authentication
+    router.replace('/')
   }
 
   return (
