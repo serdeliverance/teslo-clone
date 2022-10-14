@@ -30,7 +30,6 @@ const LoginPage = () => {
   const [showError, setShowError] = useState(false)
 
   const onLoginUser = async ({ email, password }: FormData) => {
-
     setShowError(false)
 
     try {
