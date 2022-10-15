@@ -30,7 +30,7 @@ import { useRouter } from 'next/router'
 export const SideMenu = () => {
   const { isMenuOpen, toggleSideMenu } = useContext(UIContext)
 
-  const { user, isLoggedIn } = useContext(AuthContext)
+  const { user, isLoggedIn, logout } = useContext(AuthContext)
 
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -124,7 +124,7 @@ export const SideMenu = () => {
           </ListItem>
 
           {isLoggedIn ? (
-            <ListItem button>
+            <ListItem button onClick={logout}>
               <ListItemIcon>
                 <LoginOutlined />
               </ListItemIcon>
