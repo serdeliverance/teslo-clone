@@ -12,7 +12,6 @@ import { AuthLayout } from '../../components/layouts'
 import NextLink from 'next/link'
 import { useForm } from 'react-hook-form'
 import { validation } from '../../utils'
-import { tesloApi } from '../../api'
 import { ErrorOutlined } from '@mui/icons-material'
 import { AuthContext } from '../../context'
 import { useRouter } from 'next/router'
@@ -23,7 +22,6 @@ type FormData = {
 }
 
 const LoginPage = () => {
-
   const router = useRouter()
   const { loginUser } = useContext(AuthContext)
 
