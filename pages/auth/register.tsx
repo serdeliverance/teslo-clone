@@ -39,7 +39,6 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const orRegisterForm = async ({ name, email, password }: FormData) => {
-    
     setShowError(false)
     const { hasError, message } = await registerUser(name, email, password)
 

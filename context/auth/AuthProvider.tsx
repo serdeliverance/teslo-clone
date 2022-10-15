@@ -26,7 +26,9 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     checkToken()
   }, [])
 
-  const checkToken = async() => {
+  const checkToken = async () => {
+    if (!Cookies.get('token')) return
+
     try {
       const { data } = await tesloApi.get('/users/validate-token')
       const { token, user } = data
@@ -36,7 +38,6 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       Cookies.remove('token')
     }
   }
-  
 
   const loginUser = async (
     email: string,
