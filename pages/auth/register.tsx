@@ -12,7 +12,6 @@ import { AuthLayout } from '../../components/layouts'
 import NextLink from 'next/link'
 import { useForm } from 'react-hook-form'
 import { validation } from '../../utils'
-import { tesloApi } from '../../api'
 import { ErrorOutlined } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { AuthContext } from '../../context'
@@ -38,7 +37,7 @@ const RegisterPage = () => {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  const orRegisterForm = async ({ name, email, password }: FormData) => {
+  const onRegisterForm = async ({ name, email, password }: FormData) => {
     setShowError(false)
     const { hasError, message } = await registerUser(name, email, password)
 
@@ -49,12 +48,13 @@ const RegisterPage = () => {
       return
     }
 
-    router.replace('/')
+    const destination = router.query.p?.toString() || '/'
+    router.replace(destination)
   }
 
   return (
     <AuthLayout title="Login">
-      <form noValidate>
+      <form onSubmit={ handleSubmit(onRegisterForm) } noValidate>
         <Box sx={{ width: 350, padding: '10px 20px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -127,7 +127,7 @@ const RegisterPage = () => {
             </Grid>
 
             <Grid item xs={12} display="flex" justifyContent="end">
-              <NextLink href="/auth/login" passHref>
+              <NextLink href={ router.query.p ? `/auth/login?p=${ router.query.p }` : '/auth/login' } passHref>
                 <Link underline="always">Don you have an account?</Link>
               </NextLink>
             </Grid>
