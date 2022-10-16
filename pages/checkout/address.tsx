@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
-import { jwt } from '../../utils'
+import { countries } from '../../utils'
 
 const AddressPage = () => {
   return (
@@ -41,9 +41,11 @@ const AddressPage = () => {
           <FormControl fullWidth>
             <InputLabel>Country</InputLabel>
             <Select variant="filled" label="Country" value={1}>
-              <MenuItem value={1}>Argentina</MenuItem>
-              <MenuItem value={2}>Brazil</MenuItem>
-              <MenuItem value={3}>Uruguay</MenuItem>
+              {countries.map((country) => (
+                <MenuItem key={country.code} value={country.code}>
+                  {country.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -61,7 +63,6 @@ const AddressPage = () => {
     </ShopLayout>
   )
 }
-
 
 // import { GetServerSideProps } from 'next'
 
@@ -89,7 +90,7 @@ const AddressPage = () => {
 
 //   return {
 //     props: {
-      
+
 //     }
 //   }
 // }
