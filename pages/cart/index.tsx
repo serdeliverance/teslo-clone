@@ -14,7 +14,6 @@ import { ShopLayout } from '../../components/layouts'
 import { CartContext, cartReducer } from '../../context'
 
 const CartPage = () => {
-
   const { isLoaded, cart } = useContext(CartContext)
 
   const router = useRouter()
@@ -23,13 +22,11 @@ const CartPage = () => {
     if (isLoaded && cart.length === 0) {
       router.replace('/cart/empty')
     }
-
   }, [isLoaded, cart, router])
 
   if (!isLoaded || cart.length === 0) {
-    return (<></>) // to show empty page while loading
+    return <></> // to show empty page while loading
   }
-  
 
   return (
     <ShopLayout title="Cart - x" pageDescription="Shopping cart">

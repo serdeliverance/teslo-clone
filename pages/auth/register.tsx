@@ -54,7 +54,7 @@ const RegisterPage = () => {
 
   return (
     <AuthLayout title="Login">
-      <form onSubmit={ handleSubmit(onRegisterForm) } noValidate>
+      <form onSubmit={handleSubmit(onRegisterForm)} noValidate>
         <Box sx={{ width: 350, padding: '10px 20px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -127,7 +127,14 @@ const RegisterPage = () => {
             </Grid>
 
             <Grid item xs={12} display="flex" justifyContent="end">
-              <NextLink href={ router.query.p ? `/auth/login?p=${ router.query.p }` : '/auth/login' } passHref>
+              <NextLink
+                href={
+                  router.query.p
+                    ? `/auth/login?p=${router.query.p}`
+                    : '/auth/login'
+                }
+                passHref
+              >
                 <Link underline="always">Don you have an account?</Link>
               </NextLink>
             </Grid>

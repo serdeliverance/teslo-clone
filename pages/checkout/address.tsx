@@ -61,4 +61,36 @@ const AddressPage = () => {
   )
 }
 
+import { GetServerSideProps } from 'next'
+import { jwt } from '../../utils'
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+  const { token = '' } = req.cookies
+
+  let isValidToken
+
+  try {
+    await jwt.isValidToken(token)
+    isValidToken = true
+  } catch (error) {
+    isValidToken = false
+  }
+
+  if (!isValidToken) {
+    return {
+      redirect: {
+        destination: '/auth/login?p=/checkout/address',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      
+    }
+  }
+}
+
 export default AddressPage
