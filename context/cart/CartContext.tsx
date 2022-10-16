@@ -2,6 +2,7 @@ import { createContext } from 'react'
 import { ICartProduct } from '../../interfaces'
 
 interface ContextProps {
+  isLoaded: true
   cart: ICartProduct[]
   numberOfItems: number
   subTotal: number
