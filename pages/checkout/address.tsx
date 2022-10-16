@@ -11,6 +11,7 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
+import { jwt } from '../../utils'
 
 const AddressPage = () => {
   return (
@@ -61,36 +62,36 @@ const AddressPage = () => {
   )
 }
 
-import { GetServerSideProps } from 'next'
-import { jwt } from '../../utils'
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
+// import { GetServerSideProps } from 'next'
 
-  const { token = '' } = req.cookies
+// export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
-  let isValidToken
+//   const { token = '' } = req.cookies
 
-  try {
-    await jwt.isValidToken(token)
-    isValidToken = true
-  } catch (error) {
-    isValidToken = false
-  }
+//   let isValidToken
 
-  if (!isValidToken) {
-    return {
-      redirect: {
-        destination: '/auth/login?p=/checkout/address',
-        permanent: false
-      }
-    }
-  }
+//   try {
+//     await jwt.isValidToken(token)
+//     isValidToken = true
+//   } catch (error) {
+//     isValidToken = false
+//   }
 
-  return {
-    props: {
+//   if (!isValidToken) {
+//     return {
+//       redirect: {
+//         destination: '/auth/login?p=/checkout/address',
+//         permanent: false
+//       }
+//     }
+//   }
+
+//   return {
+//     props: {
       
-    }
-  }
-}
+//     }
+//   }
+// }
 
 export default AddressPage
