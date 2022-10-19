@@ -33,7 +33,6 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       // TODO dispatch({ type: '[Auth] - Login', payload: data?.user as IUser })
     }
   }, [status, data])
-  
 
   // useEffect(() => {
   //   checkToken()

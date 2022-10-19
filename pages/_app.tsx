@@ -9,7 +9,6 @@ import { AuthProvider, CartProvider } from '../context'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-
     <SessionProvider>
       <SWRConfig
         value={{
